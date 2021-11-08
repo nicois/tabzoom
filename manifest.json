@@ -1,13 +1,23 @@
 {
   "manifest_version": 2,
   "name": "TabZoom",
-  "version": "1.0",
+  "version": "1.1",
 
-  "description": "Either see one tab per container, or only tabs in the current container",
+  "description": "Reduce the tab footprint of non-current containers",
 
   "icons": {
     "48": "icons/zoom-48.png",
     "96": "icons/zoom-96.png"
+  },
+
+  "permissions": ["tabs", "tabHide", "contextualIdentities"],
+
+  "browser_action": {
+    "default_icon": "icons/zoom-48.png"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
   },
 
   "content_scripts": [
