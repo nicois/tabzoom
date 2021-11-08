@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "TabZoom",
+  "version": "1.0",
+
+  "description": "Either see one tab per container, or only tabs in the current container",
+
+  "icons": {
+    "48": "icons/zoom-48.png",
+    "96": "icons/zoom-96.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.mozilla.org/*"],
+      "js": ["tabzoom.js"]
+    }
+  ]
+}
