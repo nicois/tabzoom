@@ -1,5 +1,3 @@
-var cakeNotification = "zoom-notification";
-
 browser.tabs.onActivated.addListener((activeInfo) =>
   browser.tabs.get(activeInfo.tabId).then(function (tabInfo) {
     let selected = tabInfo.cookieStoreId; // id for the current group
@@ -28,7 +26,6 @@ browser.tabs.onActivated.addListener((activeInfo) =>
       if (toShow.length > 0) browser.tabs.show(toShow);
       if (toHide.length > 0) browser.tabs.hide(toHide);
       if (foreignTabs.length > 0) browser.tabs.move(foreignTabs, { index: 0 });
-      // toHide can only be nonempty if we are switching to a new group (or we have just loaded)
       if (toHide.length > 0) {
         browser.tabs.highlight({
           populate: false,
@@ -38,22 +35,3 @@ browser.tabs.onActivated.addListener((activeInfo) =>
     });
   })
 );
-
-browser.commands.onCommand.addListener(function (command) {
-  if (command === "zoom-out") {
-    window.console.log("zooming out");
-    browser.notifications.create(cakeNotification, {
-      type: "basic",
-      iconUrl: browser.runtime.getURL("icons/zoom-96.png"),
-      title: "zooming out",
-      message: "Something something cake",
-    });
-  }
-});
-
-browser.browserAction.onClicked.addListener(() => {
-  var clearing = browser.notifications.clear(cakeNotification);
-  clearing.then(() => {
-    console.log("cleared");
-  });
-});
