@@ -7,7 +7,7 @@ browser.tabs.onActivated.addListener((activeInfo) =>
     let foreignTabs = []; // tabs to show despite not being in this group
     let currentGroup = []; // tabs in the current group
     browser.tabs.query({ currentWindow: true }).then((tabs) => {
-      for (let tab of tabs) {
+      for (let tab of tabs.sort((a, b) => a.lastAccessed - b.lastAccessed)) {
         let showMe = false;
         if (tab.cookieStoreId === selected) {
           showMe = true;
