@@ -1,3 +1,14 @@
+var config = Object();
+
+function restoreOptions() {
+  browser.storage.sync.get().then((res) => {
+    config = res;
+  });
+}
+
+document.addEventListener("DOMContentLoaded", restoreOptions);
+browser.storage.onChanged.addListener(restoreOptions);
+
 browser.tabs.onActivated.addListener((activeInfo) =>
   browser.tabs.get(activeInfo.tabId).then(function (tabInfo) {
     let selected = tabInfo.cookieStoreId; // id for the current group
@@ -7,7 +18,9 @@ browser.tabs.onActivated.addListener((activeInfo) =>
     let foreignTabs = []; // tabs to show despite not being in this group
     let currentGroup = []; // tabs in the current group
     browser.tabs.query({ currentWindow: true }).then((tabs) => {
-      for (let tab of tabs.sort((a, b) => a.lastAccessed - b.lastAccessed)) {
+      if (config.sortTabs)
+        tabs = tabs.sort((a, b) => a.lastAccessed - b.lastAccessed);
+      for (let tab of tabs) {
         let showMe = false;
         if (tab.cookieStoreId === selected) {
           showMe = true;
@@ -23,11 +36,11 @@ browser.tabs.onActivated.addListener((activeInfo) =>
       if (toShow.length > 0) browser.tabs.show(toShow);
       if (toHide.length > 0) browser.tabs.hide(toHide);
 
-      // if there are multiple tab groups, push the "others" to the left
-      if (foreignTabs.length > 0) browser.tabs.move(foreignTabs, { index: 0 });
+      if (config.moveForeignTabs && foreignTabs.length > 0)
+        browser.tabs.move(foreignTabs, { index: 0 });
 
       // if we have just switched groups, highlight those in the current group
-      if (toHide.length > 0) {
+      if (config.highlightTabs && toHide.length > 0) {
         browser.tabs.highlight({
           populate: false,
           tabs: [...Array(tabs.length).keys()].slice(foreignTabs.length),

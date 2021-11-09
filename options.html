@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <form>
+      <input
+        id="move-foreign-tabs"
+        type="checkbox"
+        name="move-foreign-tabs"
+        value="yes"
+      />
+      <label for="move-foreign-tabs"
+        >Always move tabs in other containers to the left</label
+      >
+      <br />
+      <input id="sort-tabs" type="checkbox" name="sort-tabs" value="yes" />
+      <label for="sort-tabs"
+        >When switching containers, sort the tabs by last-accessed time?</label
+      >
+      <br />
+      <input
+        id="highlight-tabs"
+        type="checkbox"
+        name="highlight-tabs"
+        value="yes"
+      />
+      <label for="highlight-tabs"
+        >When switching containers, temporarily highlight the tabs associated
+        with the current container?</label
+      >
+      <p />
+      <button type="submit">Save</button>
+    </form>
+    <script src="options.js"></script>
+  </body>
+</html>

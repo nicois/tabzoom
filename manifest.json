@@ -1,7 +1,18 @@
 {
   "manifest_version": 2,
   "name": "TabZoom",
-  "version": "1.2",
+  "version": "1.3",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{21e7c6a3-cd3a-4671-bef3-0a4befecbb0c}",
+      "strict_min_version": "90.0"
+    }
+  },
+
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true
+  },
 
   "description": "Reduce the tab footprint of non-current containers",
 
@@ -10,7 +21,7 @@
     "96": "icons/zoom-96.png"
   },
 
-  "permissions": ["tabs", "tabHide", "contextualIdentities"],
+  "permissions": ["tabs", "tabHide", "contextualIdentities", "storage"],
 
   "browser_action": {
     "default_icon": "icons/zoom-48.png"
@@ -23,7 +34,7 @@
   "content_scripts": [
     {
       "matches": ["*://*.mozilla.org/*"],
-      "js": ["tabzoom.js"]
+      "js": ["tabzoom.js", "options.js"]
     }
   ]
 }
