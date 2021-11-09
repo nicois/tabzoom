@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "TabZoom",
-  "version": "1.1",
+  "version": "1.2",
 
   "description": "Reduce the tab footprint of non-current containers",
 
