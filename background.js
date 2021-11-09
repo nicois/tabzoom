@@ -20,12 +20,13 @@ browser.tabs.onActivated.addListener((activeInfo) =>
         if (tab.hidden && showMe) toShow.push(tab.id);
         if (!tab.hidden && !showMe) toHide.push(tab.id);
       }
-      console.log(toShow);
-      console.log(toHide);
-
       if (toShow.length > 0) browser.tabs.show(toShow);
       if (toHide.length > 0) browser.tabs.hide(toHide);
+
+      // if there are multiple tab groups, push the "others" to the left
       if (foreignTabs.length > 0) browser.tabs.move(foreignTabs, { index: 0 });
+
+      // if we have just switched groups, highlight those in the current group
       if (toHide.length > 0) {
         browser.tabs.highlight({
           populate: false,
