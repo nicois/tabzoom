@@ -1,3 +1,5 @@
+/*global browser*/
+
 function saveOptions(e) {
   browser.storage.sync.set({
     moveForeignTabs: document.querySelector("#move-foreign-tabs").value,
