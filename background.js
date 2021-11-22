@@ -82,8 +82,9 @@ browser.tabs.onActivated.addListener((activeInfo) =>
                   if (is_placeholder) {
                     storesShown[tab.cookieStoreId] = true;
                     showMe = true;
+                  } else {
+                    foreignTabs.push(tab.id);
                   }
-                  foreignTabs.push(tab.id);
                 }
                 if (tab.hidden && showMe)
                   browser.tabs
