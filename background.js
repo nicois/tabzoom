@@ -182,14 +182,18 @@ browser.tabs.onActivated.addListener((activeInfo) => {
                   url: `/placeholder.html?title=${encodeURIComponent(cxName)}`,
                   cookieStoreId: cookieStoreId,
                 })
-                .then(() =>
+                .then((newTab) => {
                   console.log(
-                    "Created new tab for " +
+                    `Created new tab ${newTab.id} for ` +
                       cxName +
-                      " with opener " +
+                      " with opener/succeeder " +
                       tabInGroup[cookieStoreId]
-                  )
-                );
+                  );
+                  browser.tabs.moveInSuccession([
+                    newTab.id,
+                    tabInGroup[cookieStoreId],
+                  ]);
+                });
             }
           }
 
