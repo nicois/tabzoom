@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "TabZoom",
-  "version": "1.7.3",
+  "version": "1.8.0",
   "browser_specific_settings": {
     "gecko": {
       "id": "{21e7c6a3-cd3a-4671-bef3-0a4befecbb0c}",
