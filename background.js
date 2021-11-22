@@ -86,6 +86,7 @@ browser.tabs.onActivated.addListener((activeInfo) =>
                 if (!storesShown[cookieStoreId]) {
                   let cxName = contextNameMap[cookieStoreId] || "default";
                   browser.tabs.create({
+                    index: 0,
                     title: cxName,
                     discarded: true,
                     url: "/placeholder.html",
