@@ -1,13 +1,21 @@
 <!DOCTYPE html>
-
 <html>
   <head>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'nonce-EDNnf03nceIOfn39fn3e9h3sdfa'"
+    />
     <meta charset="utf-8" />
     <title>-</title>
   </head>
 
-  <body>
+  <body onload="setTitle()">
     Body
-    <script src="placeholder.js"></script>
+    <script nonce="EDNnf03nceIOfn39fn3e9h3sdfa">
+      function setTitle() {
+        window.document.title =
+          new URLSearchParams(window.location.search).get("title") || "?";
+      }
+    </script>
   </body>
 </html>

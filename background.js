@@ -29,6 +29,7 @@ browser.tabs.onActivated.addListener((activeInfo) =>
           console.log(tabInfo);
           let selected = tabInfo.cookieStoreId; // id for the current group
           let storesShown = {}; // tracks whether we have seen tabs in this group yet.
+          let tabInGroup = {}; // maps a store to a valid tab ID
           // value is whether we have already shown the placeholder tab
           let hidSomething = false;
           let toHide = []; // tabs currently shown which we want to hide
@@ -76,6 +77,7 @@ browser.tabs.onActivated.addListener((activeInfo) =>
                 } else if (tab.cookieStoreId !== selected) {
                   if (!storesShown[tab.cookieStoreId]) {
                     storesShown[tab.cookieStoreId] = false;
+                    tabInGroup[tab.cookieStoreId] = tab.id;
                   }
                   if (is_placeholder) {
                     storesShown[tab.cookieStoreId] = true;
@@ -150,6 +152,7 @@ browser.tabs.onActivated.addListener((activeInfo) =>
                   browser.tabs
                     .create({
                       index: 0,
+                      openerTabId: tabInGroup[cookieStoreId],
                       title: cxName,
                       discarded: true,
                       url: `/placeholder.html?title=${encodeURIComponent(
@@ -157,7 +160,14 @@ browser.tabs.onActivated.addListener((activeInfo) =>
                       )}`,
                       cookieStoreId: cookieStoreId,
                     })
-                    .then(() => console.log("Created new tab for " + cxName));
+                    .then(() =>
+                      console.log(
+                        "Created new tab for " +
+                          cxName +
+                          " with opener " +
+                          tabInGroup[cookieStoreId]
+                      )
+                    );
                 }
               }
 
